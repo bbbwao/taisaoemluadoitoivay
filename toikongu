@@ -11,7 +11,8 @@ local allowedUsers = {
     ["demonkjq"] = true,
     ["gz2ma"] = true,
     ["anhtthuc03"] = true,
-    ["hieu0122808huhu"] = true
+    ["hieu0122808huhu"] = true,
+    ["Kaiboypho"] = true
 }
 local currentUserName = game.Players.LocalPlayer.Name
 if not allowedUsers[currentUserName] then
