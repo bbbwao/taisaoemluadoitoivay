@@ -26,13 +26,13 @@ local hitboxSize = Vector3.new(9.9, 9.9, 9.9)
 local originalSizes = {}
 local library = loadstring(game.HttpGet(game, "https://raw.githubusercontent.com/VNT-UNIVERSAL/MyCode/main/UILib"))()
     local w1 = library:Window("DiaPhu Community")
-    w1:Slider("Hitbox X", "X", 1, 30, function(value)
+    w1:Slider("Hitbox X", "X", 1, 20, function(value)
     hitboxSize = Vector3.new(value, hitboxSize.Y, hitboxSize.Z)
 end)
-w1:Slider("Hitbox Y", "Y", 1, 30, function(value)
+w1:Slider("Hitbox Y", "Y", 1, 20, function(value)
     hitboxSize = Vector3.new(hitboxSize.X, value, hitboxSize.Z)
 end)
-w1:Slider("Hitbox Z", "Z", 1, 30, function(value)
+w1:Slider("Hitbox Z", "Z", 1, 20, function(value)
     hitboxSize = Vector3.new(hitboxSize.X, hitboxSize.Y, value)
 end)
 w1:Button("Hitbox", function()
@@ -51,6 +51,52 @@ w1:Button("Hitbox", function()
             handle.Massless = true
             handle.Transparency = 0.2 -- Đảm bảo nhìn thấy hitbox
             -- Tạo viền xanh cho hitbox
+            local selectionBox = Instance.new("SelectionBox")
+            selectionBox.Adornee = handle
+            selectionBox.Color3 = Color3.new(0, 0.313725, 0.47451)
+            selectionBox.LineThickness = 0.05
+            selectionBox.Parent = handle
+        end
+    end
+end)
+w1:Button("HacLong", function()
+    hitboxEnabled = true -- Đặt trạng thái bật hitbox
+    local player = game:GetService("Players").LocalPlayer
+    if not player or not player.Character then return end
+    for _, tool in pairs(player.Character:GetChildren()) do
+        if tool:IsA("Tool") and tool:FindFirstChild("Handle") then
+            local handle = tool.Handle
+            -- Lưu kích thước gốc nếu chưa lưu
+            if not originalSizes[tool] then
+                originalSizes[tool] = handle.Size
+            end
+            -- Cập nhật kích thước hitbox
+            handle.Size = Vector3.new(5, 4, 12)
+            handle.Massless = true
+            handle.Transparency = 0.5
+            local selectionBox = Instance.new("SelectionBox")
+            selectionBox.Adornee = handle
+            selectionBox.Color3 = Color3.new(0, 0.313725, 0.47451)
+            selectionBox.LineThickness = 0.05
+            selectionBox.Parent = handle
+        end
+    end
+end)
+w1:Button("Kich", function()
+    hitboxEnabled = true -- Đặt trạng thái bật hitbox
+    local player = game:GetService("Players").LocalPlayer
+    if not player or not player.Character then return end
+    for _, tool in pairs(player.Character:GetChildren()) do
+        if tool:IsA("Tool") and tool:FindFirstChild("Handle") then
+            local handle = tool.Handle
+            -- Lưu kích thước gốc nếu chưa lưu
+            if not originalSizes[tool] then
+                originalSizes[tool] = handle.Size
+            end
+            -- Cập nhật kích thước hitbox
+            handle.Size = Vector3.new(5, 15, 5)
+            handle.Massless = true
+            handle.Transparency = 0.5
             local selectionBox = Instance.new("SelectionBox")
             selectionBox.Adornee = handle
             selectionBox.Color3 = Color3.new(0, 0.313725, 0.47451)
@@ -113,21 +159,20 @@ end)
        end
      end
     end)
-    w1:Button("Farmboss", function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/bbbwao/anhiuemnhieulamemcobietkowao/refs/heads/main/farm?token=GHSAT0AAAAAAC6ID5UJYMOWLFP3O6A3IRX4Z5O2TJA"))()
-end)
     w1:Button(
-        "Mua 2 heal",
+        "Mua 5 heal",
         function()
             if type(SoluongBangGac) ~= 'number' then
-                SoluongBangGac = 2
+                SoluongBangGac = 5
             end
-            
             for i = 1, SoluongBangGac do
                 game:GetService("ReplicatedStorage").KnitPackages._Index["sleitnick_knit@1.7.0"].knit.Services.ShopService.RE.buyItem:FireServer('băng gạc')
             end
         end
     )
+    w1:Button("Farmboss", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/bbbwao/anhiuemnhieulamemcobietkowao/refs/heads/main/farm?token=GHSAT0AAAAAAC6ID5UJYMOWLFP3O6A3IRX4Z5O2TJA"))()
+end)
 w1:Button('Đóng Menu', function()
     for i,v in pairs(game.CoreGui:GetChildren()) do
         if v:FindFirstChild('Top') then
