@@ -94,7 +94,7 @@ w1:Button("Kich", function()
                 originalSizes[tool] = handle.Size
             end
             -- Cập nhật kích thước hitbox
-            handle.Size = Vector3.new(5, 15, 5)
+            handle.Size = Vector3.new(7, 15, 5)
             handle.Massless = true
             handle.Transparency = 0.5
             local selectionBox = Instance.new("SelectionBox")
