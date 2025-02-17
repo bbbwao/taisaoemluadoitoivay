@@ -62,55 +62,9 @@ w1:Button("Hitbox", function()
         end
     end
 end)
-w1:Button("HacLong", function()
-    hitboxEnabled = true -- Đặt trạng thái bật hitbox
-    local player = game:GetService("Players").LocalPlayer
-    if not player or not player.Character then return end
-    for _, tool in pairs(player.Character:GetChildren()) do
-        if tool:IsA("Tool") and tool:FindFirstChild("Handle") then
-            local handle = tool.Handle
-            -- Lưu kích thước gốc nếu chưa lưu
-            if not originalSizes[tool] then
-                originalSizes[tool] = handle.Size
-            end
-            -- Cập nhật kích thước hitbox
-            handle.Size = Vector3.new(5, 4, 12)
-            handle.Massless = true
-            handle.Transparency = 0.5
-            local selectionBox = Instance.new("SelectionBox")
-            selectionBox.Adornee = handle
-            selectionBox.Color3 = Color3.new(0, 0.313725, 0.47451)
-            selectionBox.LineThickness = 0.05
-            selectionBox.Parent = handle
-        end
-    end
-end)
-w1:Button("Kich", function()
-    hitboxEnabled = true -- Đặt trạng thái bật hitbox
-    local player = game:GetService("Players").LocalPlayer
-    if not player or not player.Character then return end
-    for _, tool in pairs(player.Character:GetChildren()) do
-        if tool:IsA("Tool") and tool:FindFirstChild("Handle") then
-            local handle = tool.Handle
-            -- Lưu kích thước gốc nếu chưa lưu
-            if not originalSizes[tool] then
-                originalSizes[tool] = handle.Size
-            end
-            -- Cập nhật kích thước hitbox
-            handle.Size = Vector3.new(5, 15, 5)
-            handle.Massless = true
-            handle.Transparency = 0.5
-            local selectionBox = Instance.new("SelectionBox")
-            selectionBox.Adornee = handle
-            selectionBox.Color3 = Color3.new(0, 0.313725, 0.47451)
-            selectionBox.LineThickness = 0.05
-            selectionBox.Parent = handle
-        end
-    end
-end)
  w1:Label("Tinh Nang")
 -- Button tắt hitbox
-w1:Button("Ẩn ↑", function()
+w1:Button("Ẩn Hitbox", function()
     hitboxEnabled = false -- Đặt trạng thái tắt hitbox
     local player = game:GetService("Players").LocalPlayer
     if not player or not player.Character then return end
