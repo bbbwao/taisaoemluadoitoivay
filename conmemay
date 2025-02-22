@@ -1,0 +1,185 @@
+local player = game:GetService("Players").LocalPlayer
+local playerScripts = player:FindFirstChild("PlayerScripts")
+
+if playerScripts then
+    local donoBoard = playerScripts:FindFirstChild("DonoBoard")
+    if donoBoard then
+        donoBoard:Destroy()
+        warn("Anti Như Vậy Mà Đòi Band?")
+    end
+end
+local allowedUsers = {
+    ["phandung3614"] = true,
+    ["seven09812"] = true,
+    ["emfankia123"] = true,
+    ["demonkjq"] = true,
+  	["Fjfjdj597"] = true,
+	  ["meobysl"] = true,
+	  ["Rip_DucBinh"] = true,
+}
+local currentUserName = game.Players.LocalPlayer.Name
+
+if not allowedUsers[currentUserName] then
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "?";
+        Text = "Không Trình Mà Đòi Sài Đồ Của Tao?.";
+        Duration = 5;
+    })
+    return
+end
+    local library = loadstring(game.HttpGet(game, "https://raw.githubusercontent.com/VNT-UNIVERSAL/MyCode/main/UILib"))()
+    local w1 = library:Window("DPHU V2 ")
+    w1:Toggle(
+        "Lấy Băng Gạc",
+        "BangGac",
+        false,
+        function(toggled)
+            AutoLayBangGac = toggled
+        end
+    )
+    w1:Button(
+        "Thần",
+        function()
+            local sound = Instance.new("Sound")
+            sound.SoundId = "rbxassetid://413861777"
+            sound.Parent = game:GetService("SoundService")
+            sound:Play()
+        
+            wait()
+            game.StarterGui:SetCore("SendNotification", {
+                Title = "Need tool"; -- the title (ofc)
+                Text = "If you dont have weapon then get one and use this command"; -- what the text says (ofc)
+                Duration = 5; -- how long the notification should in secounds
+            })
+            for i,v in pairs(game:GetService'Players'.LocalPlayer.Character:GetChildren()) do
+                if v:isA("Tool") then
+                    local a = Instance.new("SelectionBox",v.Handle)
+                    v.Handle.Massless = true
+                    v.Handle.Transparency = 1
+                    a.Adornee = v.Handle
+                    v.Handle.Size = Vector3.new(9.9, 9.9, 9.9)
+                    local selectionBox = Instance.new("SelectionBox",v.Handle)
+                    selectionBox.Adornee = v.Handle
+                    selectionBox.Color3 = Color3.new(0, 0.313725, 0.47451)
+                end
+            end
+        end
+    )
+    function Music()
+        local sound = Instance.new("Sound")
+        sound.SoundId = "rbxassetid://413861777"
+        sound.Parent = game:GetService("SoundService")
+        sound:Play()
+    end
+    w1:Button(
+        "Mở Xe=))",
+        function()
+            if game.Players.LocalPlayer.Character.Humanoid.SeatPart then
+                game.StarterGui:SetCore("SendNotification", {
+                    Title = "Key Unlock";
+                    Text = "Waitings Key Unlock";
+                    Duration = 5; 
+                })
+                print(game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.EngineValue)
+                if game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.EngineValue then
+                   game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.EngineValue.Value = true
+                    Music()
+                    game.StarterGui:SetCore("SendNotification", {
+                    Title = "key Unlock";
+                    Text = "Success";
+                    Duration = 5; 
+                })
+                else
+                                game.StarterGui:SetCore("SendNotification", {
+                    Title = "key Unlock";
+                    Text = "Error";
+                    Duration = 5; 
+                })
+                end
+                else
+                game.StarterGui:SetCore("SendNotification", {
+                    Title = "Mở Xe";
+                    Text = "Sit to Car";
+                    Duration = 5; 
+                })
+            end
+        end
+    )
+    function GetBackpack(Weapon) 
+        game:GetService("ReplicatedStorage").KnitPackages._Index:FindFirstChild("sleitnick_knit@1.7.0").knit.Services.InventoryService.RE.updateInventory:FireServer("refresh")
+        game:GetService("ReplicatedStorage"):WaitForChild("KnitPackages")
+            :WaitForChild("_Index"):WaitForChild("sleitnick_knit@1.7.0")
+            :WaitForChild("knit"):WaitForChild("Services")
+            :WaitForChild("InventoryService"):WaitForChild("RE")
+            :WaitForChild("updateInventory"):FireServer("eue", Weapon)
+    end
+    spawn(function()
+     while wait(.3) do
+       if AutoLayBangGac then
+           if not game.Players.LocalPlayer.Backpack:FindFirstChild('băng gạc') then
+           GetBackpack('băng gạc')
+           end
+       end
+     end
+    end)
+    w1:Label("Shop")
+    SoluongBangGac = 1
+    w1:Slider(
+        "Mua Gạc :",
+        "CpuntBangGac",
+        1,
+        99,
+        function(value)
+            SoluongBangGac = value
+        end,
+        1
+    )
+    w1:Button(
+        "Buy BangGac",
+        function()
+            if type(SoluongBangGac) ~= 'number' then
+                SoluongBangGac = 1
+            end
+            
+            for i = 1, SoluongBangGac do
+                game:GetService("ReplicatedStorage").KnitPackages._Index["sleitnick_knit@1.7.0"].knit.Services.ShopService.RE.buyItem:FireServer('băng gạc')
+            end
+        end
+    )
+    w1:Button('Hưng Khẹt Vô Rồi Chạy Đi Ae ơi=))', function()
+    for i,v in pairs(game.CoreGui:GetChildren()) do
+        if v:FindFirstChild('Top') then
+            v:Destroy()    
+        end
+    end
+end) 
+w1:Button("Tắt Thần=))", function()
+    local sound = Instance.new("Sound")
+    sound.SoundId = "rbxassetid://413861777"
+    sound.Parent = game:GetService("SoundService")
+    sound:Play()
+
+    -- Gửi thông báo
+    pcall(function()
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "Need tool",
+            Text = "If you don't have a weapon, get one and use this command.",
+            Duration = 5,
+        })
+    end)
+
+    -- Kiểm tra Tool và SelectionBox
+    local player = game:GetService("Players").LocalPlayer
+    if player.Character then
+        for _, tool in pairs(player.Character:GetChildren()) do
+            if tool:IsA("Tool") and tool:FindFirstChild("Handle") then
+                for _, child in pairs(tool.Handle:GetChildren()) do
+                    if child:IsA("SelectionBox") then
+                        child:Destroy()
+                    end
+                end
+            end
+        end
+    end
+end)
+w1:Label("DPHU V2")
