@@ -7,14 +7,7 @@ if playerScripts then
         warn("Anti")
     end
 end
-local allowedUsers = {
-    ["demonkjq"] = true,
-    ["gz2ma"] = true,
-    ["anhtthuc03"] = true,
-    ["hieu0122808huhu"] = true,
-    ["Kaiboypho"] = true,
-    ["dobermanminh"] = true
-}
+local allowedUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/bbbwao/roblox/refs/heads/main/user"))()
 local currentUserName = game.Players.LocalPlayer.Name
 if not allowedUsers[currentUserName] then
     game.StarterGui:SetCore("SendNotification", {
