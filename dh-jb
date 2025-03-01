@@ -1,8 +1,4 @@
-local allowedUsers = {
-    ["0Chunsad"] = true,
-    ["yIIhZnhHAGU"] = true,
-    ["UFJcFkeA"] = true
-}
+local allowedUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/BinNe123-deg/binne/refs/heads/main/BinBin"))()
 local currentUserName = game.Players.LocalPlayer.Name
 
 if not allowedUsers[currentUserName] then
