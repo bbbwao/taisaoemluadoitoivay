@@ -74,7 +74,7 @@ function ClickEffect(r)
             s.Image = "rbxassetid://2708891598"
             s.ImageTransparency = 0.800
             s.ScaleType = Enum.ScaleType.Fit
-            s.ImageColor3 = Color3.fromRGB(249, 2, 255)
+            s.ImageColor3 = Color3.fromRGB(250, 1, 1)
             s.Position =
                 UDim2.new(
                 (h.X - s.AbsolutePosition.X) / r.AbsoluteSize.X,
@@ -120,41 +120,41 @@ function a:Window(w)
     local G = Instance.new("Frame")
     y.Name = "Top"
     y.Parent = t
-    y.BackgroundColor3 = Color3.fromRGB(251, 0, 188)
+    y.BackgroundColor3 = Color3.fromRGB(43, 43, 43)
     y.BorderSizePixel = 0
     y.Position = UDim2.new(0, 25, 0, -30 + 36 * a.windowCount + 6 * a.windowCount)
     y.Size = UDim2.new(0, 212, 0, 36)
     Drag(y)
     z.Name = "WindowLine"
     z.Parent = y
-    z.BackgroundColor3 = Color3.fromRGB(251, 0, 188)
+    z.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     z.BorderSizePixel = 0
     z.Position = UDim2.new(0, 0, 0, 34)
     z.Size = UDim2.new(0, 212, 0, 2)
     A.Color =
         ColorSequence.new {
-        ColorSequenceKeypoint.new(0.00, Color3.fromRGB(251, 0, 188)),
-        ColorSequenceKeypoint.new(0.20, Color3.fromRGB(251, 0, 188)),
-        ColorSequenceKeypoint.new(0.50, Color3.fromRGB(23, 132, 255)),
-        ColorSequenceKeypoint.new(0.80, Color3.fromRGB(251, 0, 188)),
-        ColorSequenceKeypoint.new(1.00, Color3.fromRGB(251, 0, 188))
+        ColorSequenceKeypoint.new(0.00, Color3.fromRGB(43, 43, 43)),
+        ColorSequenceKeypoint.new(0.20, Color3.fromRGB(43, 43, 43)),
+        ColorSequenceKeypoint.new(0.50, Color3.fromRGB(131, 132, 255)),
+        ColorSequenceKeypoint.new(0.80, Color3.fromRGB(43, 43, 43)),
+        ColorSequenceKeypoint.new(1.00, Color3.fromRGB(43, 43, 43))
     }
     A.Name = "WindowLineGradient"
     A.Parent = z
     B.Name = "Header"
     B.Parent = y
-    B.BackgroundColor3 = Color3.fromRGB(251, 0, 188)
+    B.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     B.BackgroundTransparency = 1.000
     B.BorderSizePixel = 0
     B.Size = UDim2.new(0, 54, 0, 34)
     B.Font = Enum.Font.GothamSemibold
     B.Text = "   " .. tostring(w) or ""
-    B.TextColor3 = Color3.fromRGB(251, 0, 188)
+    B.TextColor3 = Color3.fromRGB(255, 255, 255)
     B.TextSize = 14.000
     B.TextXAlignment = Enum.TextXAlignment.Left
     C.Name = "WindowToggle"
     C.Parent = y
-    C.BackgroundColor3 = Color3.fromRGB(251, 0, 188)
+    C.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     C.BackgroundTransparency = 1.000
     C.BorderSizePixel = 0
     C.Position = UDim2.new(0.835270762, 0, 0, 0)
@@ -166,7 +166,7 @@ function a:Window(w)
     D.Name = "WindowToggleImg"
     D.Parent = C
     D.AnchorPoint = Vector2.new(0.5, 0.5)
-    D.BackgroundColor3 = Color3.fromRGB(251, 0, 188)
+    D.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     D.BackgroundTransparency = 1.000
     D.BorderSizePixel = 0
     D.Position = UDim2.new(0.5, 0, 0.5, 0)
