@@ -74,7 +74,7 @@ function ClickEffect(r)
             s.Image = "rbxassetid://2708891598"
             s.ImageTransparency = 0.800
             s.ScaleType = Enum.ScaleType.Fit
-            s.ImageColor3 = Color3.fromRGB(131, 132, 255)
+            s.ImageColor3 = Color3.fromRGB(255, 255, 0))
             s.Position =
                 UDim2.new(
                 (h.X - s.AbsolutePosition.X) / r.AbsoluteSize.X,
