@@ -120,7 +120,7 @@ function a:Window(w)
     local G = Instance.new("Frame")
     y.Name = "Top"
     y.Parent = t
-    y.BackgroundColor3 = Color3.fromRGB(43, 43, 43)
+    y.BackgroundColor3 = Color3.fromRGB(43, 255, 43)
     y.BorderSizePixel = 0
     y.Position = UDim2.new(0, 25, 0, -30 + 36 * a.windowCount + 6 * a.windowCount)
     y.Size = UDim2.new(0, 212, 0, 36)
