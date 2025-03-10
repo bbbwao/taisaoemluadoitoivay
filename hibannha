@@ -4,7 +4,7 @@ warn("Anti afk ran")
 game:GetService("VirtualUser"):CaptureController()
 game:GetService("VirtualUser"):ClickButton2(Vector2.new())
 end)
-local allowedUsers = loadstring(game:HttpGet("https://github.com/BinNe123-deg/AeBin/blob/main/AeBin"))()
+local allowedUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/BinNe123-deg/AeBin/refs/heads/main/AeBin"))()
 local currentUserName = game.Players.LocalPlayer.Name
 if not allowedUsers[currentUserName] then
     game.StarterGui:SetCore("SendNotification", {
