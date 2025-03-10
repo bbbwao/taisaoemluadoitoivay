@@ -1,0 +1,84 @@
+warn("Anti afk running")
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+warn("Anti afk ran")
+game:GetService("VirtualUser"):CaptureController()
+game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+end)
+local allowedUsers = loadstring(game:HttpGet("https://github.com/BinNe123-deg/AeBin/blob/main/AeBin"))()
+local currentUserName = game.Players.LocalPlayer.Name
+if not allowedUsers[currentUserName] then
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "Waooo";
+        Text = "Đéo má ko làm mà đòi có ăn hả?";
+        Duration = 5;
+    })
+    return
+end
+local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
+local PhantomForcesWindow = Library:NewWindow("DPHUB-Free")
+
+local KillingCheats = PhantomForcesWindow:NewSection("Trai Nghiem Di Thg Lon!")
+
+KillingCheats:CreateTextbox("Nhập Tốc Độ..", function(Text)
+	if focus then
+		getfenv().speed = tonumber(object.Text)
+	end
+end)
+KillingCheats:CreateToggle("Auto Farm", function(state)
+getfenv().auto = true
+getfenv().first = false
+spawn(function()
+    while getfenv().auto do
+    for i,v in pairs(workspace:GetChildren()) do
+        if v.ClassName == "Model" and v:FindFirstChild("Container") or v.Name == "PortCraneOversized" then
+            v:Destroy()
+        end
+    end
+    wait(1)
+end
+end)
+while getfenv().auto do
+local hum = game.Players.LocalPlayer.Character.Humanoid
+local car = hum.SeatPart.Parent
+ car.PrimaryPart=car.Body:FindFirstChild("#Weight")
+if getfenv().first ~= true then
+    if workspace.Workspace:FindFirstChild("Buildings") then
+    workspace.Workspace.Buildings:Destroy()
+    end
+
+if BobTheBuilder == nil then
+BobTheBuilder = Instance.new("Part",workspace)
+BobTheBuilder.Size = Vector3.new(10000,10,10000)
+BobTheBuilder.Position = Vector3.new(-7594.541015625, 7, 5130.95263671875)
+BobTheBuilder.Anchored = true
+BobTheBuilder2 = Instance.new("Part",workspace)
+BobTheBuilder2.Size = Vector3.new(10000,10,10000)
+BobTheBuilder2.CFrame = BobTheBuilder.CFrame*CFrame.new(0,0,-1000)
+BobTheBuilder2.Anchored = true
+BobTheBuilder3 = Instance.new("Part",workspace)
+BobTheBuilder3.Size = Vector3.new(10000,10,10000)
+BobTheBuilder3.CFrame = BobTheBuilder2.CFrame*CFrame.new(0,0,-1000)
+BobTheBuilder3.Anchored = true
+end
+car:PivotTo(BobTheBuilder.CFrame*CFrame.new(0,5,1000))
+wait(5)
+end
+
+car.PrimaryPart.Velocity = Vector3.new(0,0,0)
+getfenv().first = true
+ local location = BobTheBuilder2.CFrame*CFrame.new(0,5,-1300).Position
+ repeat task.wait()
+    mathlock = getfenv().speed or 500
+    car.PrimaryPart.Velocity =car.PrimaryPart.CFrame.LookVector*mathlock
+    car:PivotTo(CFrame.new(car.PrimaryPart.Position,location))
+until game.Players.LocalPlayer:DistanceFromCharacter(location)< 50 or getfenv().auto == false 
+car.PrimaryPart.Velocity = Vector3.new(0,0,0)
+local location = BobTheBuilder.CFrame*CFrame.new(0,5,1000).Position
+repeat task.wait()
+    mathlock = getfenv().speed or 500
+    car.PrimaryPart.Velocity =car.PrimaryPart.CFrame.LookVector*mathlock
+    car:PivotTo(CFrame.new(car.PrimaryPart.Position,location))
+until game.Players.LocalPlayer:DistanceFromCharacter(location)< 50 or getfenv().auto == false 
+car.PrimaryPart.Velocity = Vector3.new(0,0,0)
+end
+end)
