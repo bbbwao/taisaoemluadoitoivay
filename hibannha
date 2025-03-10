@@ -15,9 +15,9 @@ if not allowedUsers[currentUserName] then
     return
 end
 local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
-local PhantomForcesWindow = Library:NewWindow("DPHUB-Free")
+local PhantomForcesWindow = Library:NewWindow("DPHUB-V1")
 
-local KillingCheats = PhantomForcesWindow:NewSection("Trai Nghiem Di Duma")
+local KillingCheats = PhantomForcesWindow:NewSection("Trai Nghiem Di")
 
 KillingCheats:CreateTextbox("Nhập Tốc Độ..", function(Text)
 	if focus then
