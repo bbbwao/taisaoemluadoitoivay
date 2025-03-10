@@ -17,7 +17,7 @@ end
 local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
 local PhantomForcesWindow = Library:NewWindow("DPHUB-Free")
 
-local KillingCheats = PhantomForcesWindow:NewSection("Trai Nghiem Di Thg Lon!")
+local KillingCheats = PhantomForcesWindow:NewSection("Trai Nghiem Di Duma")
 
 KillingCheats:CreateTextbox("Nhập Tốc Độ..", function(Text)
 	if focus then
