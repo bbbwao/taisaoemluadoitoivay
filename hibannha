@@ -1,6 +1,6 @@
-warn("Anti afk running")
+warn("Anti afk")
 game:GetService("Players").LocalPlayer.Idled:connect(function()
-warn("Anti afk ran")
+warn("CẶC!")
 game:GetService("VirtualUser"):CaptureController()
 game:GetService("VirtualUser"):ClickButton2(Vector2.new())
 end)
@@ -8,23 +8,23 @@ local allowedUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/
 local currentUserName = game.Players.LocalPlayer.Name
 if not allowedUsers[currentUserName] then
     game.StarterGui:SetCore("SendNotification", {
-        Title = "Waooo";
-        Text = "Đéo má ko làm mà đòi có ăn hả?";
+        Title = "LỒN";
+        Text = "CÓ CÁI LỒN MẸ M ĐÒI SÀI KÉ";
         Duration = 5;
     })
     return
 end
 local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
-local PhantomForcesWindow = Library:NewWindow("DPHUB-V1")
+local dphub = Library:NewWindow("DPHUB-V2")
 
-local KillingCheats = PhantomForcesWindow:NewSection("Trai Nghiem Di")
+local w1 = dphub:NewSection("???")
 
-KillingCheats:CreateTextbox("Nhập Tốc Độ..", function(Text)
+w1:CreateTextbox("Nhập Tốc Độ..", function(Text)
 	if focus then
 		getfenv().speed = tonumber(object.Text)
 	end
 end)
-KillingCheats:CreateToggle("Auto Farm", function(state)
+w1:CreateToggle("Auto Farm", function(state)
 getfenv().auto = true
 getfenv().first = false
 spawn(function()
