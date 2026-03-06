@@ -4,6 +4,7 @@ warn("CẶC!")
 game:GetService("VirtualUser"):CaptureController()
 game:GetService("VirtualUser"):ClickButton2(Vector2.new())
 end)
+
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
@@ -11,14 +12,12 @@ local allowedUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/
 local currentUserName = game.Players.LocalPlayer.Name
 
 if not allowedUsers[currentUserName] then
-    -- Thông báo không được phép
     game.StarterGui:SetCore("SendNotification", {
         Title = "LỒN";
         Text = "CÓ CÁI LỒN MẸ M ĐÒI SÀI KÉ";
         Duration = 5;
     })
     
-    -- Xóa GUI nếu đã tạo
     pcall(function()
         for _, v in pairs(game.CoreGui:GetChildren()) do
             if v.Name == "Fluent" or v:FindFirstChild("Fluent") then
@@ -26,24 +25,14 @@ if not allowedUsers[currentUserName] then
             end
         end
     end)
-    
-    -- Dừng script
     return
 end
--- Ẩn tất cả output console (chặn log F12)
-local oldprint = print
+
+-- Ẩn output
 print = function() end
 _G.print = function() end
 warn = function() end
 error = function() end
-
--- Chặn các phương thức log khác
-if hookfunction then
-    local oldprint = print
-    print = function() end
-    warn = function() end
-    error = function() end
-end
 
 local Window = Fluent:CreateWindow({
     Title = "Cộng Đồng Việt Rack- V1.2.0",
@@ -54,6 +43,7 @@ local Window = Fluent:CreateWindow({
     Theme = "Dark",
     MinimizeKey = Enum.KeyCode.RightAlt
 })
+
 local Tabs = {
     Main = Window:AddTab({ Title = "Main", Icon = "" }),
     Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
@@ -64,8 +54,51 @@ _G.AutoBuyBangGac = false
 _G.AutoBangGac = false
 _G.AutoHeal = false
 _G.LowHPThreshold = 90
-_G.AutoFarmGiangho = false
-_G.DisableALLautogiangho = false
+
+-- BIẾN LƯU VŨ KHÍ
+local lastWeapon = nil
+
+-- HÀM LẤY VŨ KHÍ ĐANG CẦM
+function GetCurrentWeapon()
+    local character = game.Players.LocalPlayer.Character
+    if character then
+        for _, tool in pairs(character:GetChildren()) do
+            if tool:IsA("Tool") and tool.Name ~= "băng gạc" then
+                return tool.Name
+            end
+        end
+    end
+    return nil
+end
+
+-- HÀM CẦM VŨ KHÍ (ĐƠN GIẢN NHẤT)
+function EquipWeapon(weaponName)
+    if not weaponName then return false end
+    
+    local player = game.Players.LocalPlayer
+    local character = player.Character
+    if not character then return false end
+    
+    -- Tìm trong Backpack
+    local weapon = player.Backpack:FindFirstChild(weaponName)
+    if weapon then
+        -- Cầm vũ khí
+        weapon.Parent = character
+        return true
+    end
+    return false
+end
+
+-- CẬP NHẬT VŨ KHÍ LIÊN TỤC (mỗi 1 giây)
+spawn(function()
+    while true do
+        task.wait(1)
+        local currentWeapon = GetCurrentWeapon()
+        if currentWeapon then
+            lastWeapon = currentWeapon
+        end
+    end
+end)
 
 local function GetHealthPercent()
     local player = game.Players.LocalPlayer
@@ -74,16 +107,6 @@ local function GetHealthPercent()
     local humanoid = character:FindFirstChildOfClass("Humanoid")
     if not humanoid then return 100 end
     return (humanoid.Health / humanoid.MaxHealth) * 100
-end
-
-function EquipWeapon(ToolSe)
-    if not _G.NotAutoEquip and ToolSe then
-        local tool = game.Players.LocalPlayer.Backpack:FindFirstChild(ToolSe)
-        if tool then
-            wait(0.1)
-            game.Players.LocalPlayer.Character.Humanoid:EquipTool(tool)
-        end
-    end
 end
 
 function Prompt(proximityPrompt)
@@ -113,29 +136,16 @@ function UnInventoryWeapon(WE)
     end
 end
 
-function GetList()
-    local player = game:GetService("Players").LocalPlayer
-    local inventory = player.PlayerGui.Inventory.MainFrame.List
-    local tableweaponlist = {}
-    for i,v in pairs(inventory:GetChildren()) do
-        table.insert(tableweaponlist,v.Name)
-        -- Đã xóa print
-    end
-    return tableweaponlist
-end
-
--- Xóa nút chọn vũ khí
-
--- Xóa nút bật/tắt balo
-
 local Toggle1 = Tabs.Main:AddToggle("AutoGiangHo", {Title = "Auto Buy bang gac", Default = _G.AutoBuyBangGac })
 Toggle1:OnChanged(function(Value)
     _G.AutoBuyBangGac = Value
 end)
+
 local Toggle2 = Tabs.Main:AddToggle("AutoBangGac", {Title = "Auto Bang Gac", Default = _G.AutoBangGac })
 Toggle2:OnChanged(function(Value)
     _G.AutoBangGac = Value
 end)
+
 spawn(function()
     while wait() do
         if _G.AutoBangGac then
@@ -174,7 +184,7 @@ spawn(function()
 end)
 
 local ToggleAutoHeal = Tabs.Main:AddToggle("AutoHealToggle", {
-    Title = "Auto Heal HP < 90%",
+    Title = "Auto Heal HP < 90% (tự động cầm lại vũ khí)",
     Default = false
 })
 
@@ -183,7 +193,7 @@ ToggleAutoHeal:OnChanged(function(Value)
     if Value then
         Fluent:Notify({
             Title = "Auto Heal",
-            Content = "Đã bật: Tự động dùng băng gạc khi HP dưới 90%",
+            Content = "Đã bật: Tự động dùng băng gạc khi HP dưới 90% và cầm lại vũ khí",
             Duration = 5
         })
     else
@@ -195,8 +205,9 @@ ToggleAutoHeal:OnChanged(function(Value)
     end
 end)
 
+-- AUTO HEAL CHÍNH
 spawn(function()
-    while task.wait(0.75) do
+    while task.wait(0.3) do
         if not _G.AutoHeal then
             task.wait()
             continue
@@ -204,64 +215,63 @@ spawn(function()
         
         local player = game.Players.LocalPlayer
         local character = player.Character
-        if not character then 
-            task.wait()
-            continue 
-        end
+        if not character then continue end
         
         local humanoid = character:FindFirstChildOfClass("Humanoid")
-        if not humanoid then 
-            task.wait()
-            continue 
-        end
+        if not humanoid then continue end
         
         local healthPercent = (humanoid.Health / humanoid.MaxHealth) * 100
         
         if healthPercent < _G.LowHPThreshold then
-            -- Đã xóa các dòng print
+            -- LƯU VŨ KHÍ HIỆN TẠI
+            local weaponBefore = GetCurrentWeapon()
+            if weaponBefore then
+                lastWeapon = weaponBefore
+            end
             
-            local currentWeapon = character:FindFirstChildOfClass("Tool")
-            local currentWeaponName = currentWeapon and currentWeapon.Name or _G.AttackWeapon
-            
+            -- TÌM BĂNG GẠC
             local bandage = player.Backpack:FindFirstChild("băng gạc") or character:FindFirstChild("băng gạc")
             
             if bandage then
+                -- CẦM BĂNG GẠC
                 if bandage.Parent == player.Backpack then
                     bandage.Parent = character
                     task.wait(0.2)
                 end
                 
-                local success = pcall(function()
+                -- DÙNG BĂNG GẠC
+                pcall(function()
                     game:GetService("VirtualUser"):ClickButton1(Vector2.new(0,0))
                 end)
                 
-                if success then
-                    -- Đã xóa print
-                    task.wait(1)
-                    
-                    if _G.AttackWeapon then
-                        local weapon = player.Backpack:FindFirstChild(_G.AttackWeapon)
-                        if weapon then
-                            weapon.Parent = character
-                            -- Đã xóa print
-                        else
-                            weapon = character:FindFirstChild(_G.AttackWeapon)
-                            if weapon and weapon ~= bandage then
-                                -- Đã xóa print
-                            else
-                                -- Đã xóa print
+                task.wait(1.5) -- CHỜ HEAL XONG
+                
+                -- CẦM LẠI VŨ KHÍ (PHẦN QUAN TRỌNG)
+                if lastWeapon then
+                    -- Tìm trong Backpack
+                    local weaponToEquip = player.Backpack:FindFirstChild(lastWeapon)
+                    if weaponToEquip then
+                        weaponToEquip.Parent = character
+                    else
+                        -- Nếu không có, tìm vũ khí bất kỳ
+                        for _, tool in pairs(player.Backpack:GetChildren()) do
+                            if tool:IsA("Tool") and tool.Name ~= "băng gạc" then
+                                tool.Parent = character
+                                lastWeapon = tool.Name
+                                break
                             end
                         end
-                    elseif currentWeaponName and currentWeaponName ~= "băng gạc" then
-                        local weapon = player.Backpack:FindFirstChild(currentWeaponName)
-                        if weapon then
-                            weapon.Parent = character
-                            -- Đã xóa print
+                    end
+                else
+                    -- Nếu không có lastWeapon, tìm vũ khí bất kỳ
+                    for _, tool in pairs(player.Backpack:GetChildren()) do
+                        if tool:IsA("Tool") and tool.Name ~= "băng gạc" then
+                            tool.Parent = character
+                            lastWeapon = tool.Name
+                            break
                         end
                     end
                 end
-            else
-                -- Đã xóa print
             end
         end
     end
@@ -299,8 +309,6 @@ Tabs.Main:AddButton({
         })
     end
 })
--- Xóa Toggle Auto Giang Hồ
--- Xóa các spawn function liên quan đến Auto Giang Hồ
 
 SaveManager:SetLibrary(Fluent)
 InterfaceManager:SetLibrary(Fluent)
